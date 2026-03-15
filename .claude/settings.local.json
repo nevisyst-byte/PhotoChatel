@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /home/chatel/mon-photobooth/*.py)"
+    ]
+  }
+}

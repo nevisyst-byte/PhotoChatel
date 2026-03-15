@@ -1,0 +1,21 @@
+# Credentials Google — NE JAMAIS UPLOADER
+credentials/*.json
+credentials/token.pickle
+credentials/__pycache__/
+
+# Photos prises par le photobooth
+photos/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environnements virtuels
+venv/
+.env
+
+# Système
+.DS_Store
+*.swp
+*.log

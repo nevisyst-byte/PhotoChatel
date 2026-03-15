@@ -1,0 +1,10 @@
+{
+    "cloud_path": "https://photos.app.goo.gl/auUCG8PXokm5d6dq6",
+    "delay": 3,
+    "autostart": true,
+    "resolution": "HD",
+    "camera_mode": "PiCam",
+    "event_name": "ChâtelRetroMobile",
+    "kiosk_mode": false,
+    "upload_auto": false
+}
