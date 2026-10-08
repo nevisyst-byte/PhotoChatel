@@ -4,14 +4,20 @@ import json
 SETTINGS_FILE = "settings.json"
 
 DEFAULT_SETTINGS = {
-    "cloud_path": os.path.expanduser("~/Pictures"),
-    "delay": 3,
-    "autostart": False,
-    "resolution": "FullHD",
-    "camera_mode": "PiCam",
-    "event_name": "",
-    "kiosk_mode": False,
-    "upload_auto": False
+    "cloud_path":      os.path.expanduser("~/Pictures"),
+    "delay":           3,
+    "autostart":       False,
+    "resolution":      "FullHD",
+    "camera_mode":     "PiCam",
+    "event_name":      "",
+    "kiosk_mode":      False,
+    "upload_auto":     False,
+    "idle_timeout":    45,
+    "result_timeout":  10,
+    "save_folder":     os.path.expanduser("~/Photos"),
+    "camera_ev":       0.0,
+    "reset_counter":   False,
+    "show_qr":         False,
 }
 
 def load_settings():

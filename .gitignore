@@ -15,7 +15,10 @@ __pycache__/
 venv/
 .env
 
-# Système
+# Fichiers locaux
 .DS_Store
 *.swp
 *.log
+lien.txt
+save config*.txt
+https:/
