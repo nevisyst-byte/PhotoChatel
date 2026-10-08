@@ -429,6 +429,33 @@ def add_watermark(filepath):
         print(f"Watermark error: {e}")
 
 
+def focus_before_capture(timeout=2.5):
+    """Mise au point automatique ponctuelle avant la photo.
+
+    picam.configure() remet les contrôles à zéro : l'autofocus réglé au
+    démarrage est donc perdu quand on passe en configuration "still".
+    On relance une mise au point (AfMode Auto + AfTrigger Start) et on attend
+    AfState = Focused (2) ou Failed (3). Retourne True si net, False sinon
+    (la photo est alors prise quand même, avec la dernière position de l'objectif).
+    """
+    try:
+        picam.set_controls({
+            "AfMode": controls.AfModeEnum.Auto,
+            "AfTrigger": controls.AfTriggerEnum.Start,
+        })
+        t0 = time()
+        while time() - t0 < timeout:
+            state = picam.capture_metadata().get("AfState")
+            if state == 2:      # Focused
+                return True
+            if state == 3:      # Failed
+                return False
+        return False
+    except Exception as e:
+        print(f"Autofocus error: {e}")
+        return False
+
+
 def take_photo():
     global photo_count
     delay = int(user_settings.get("delay", 3))
@@ -460,12 +487,15 @@ def take_photo():
     picam.configure(capture_config)
     picam.set_controls({"AwbEnable": False, "ColourGains": gains})
     picam.start()
-    sleep(0.5)
+    focused = focus_before_capture()
+    print(f"Autofocus avant capture : {'net' if focused else 'non confirmé'}")
+    sleep(0.2)
     picam.capture_file(str(filepath))
     picam.stop()
     picam.configure(preview_config)
     picam.start()
-    picam.set_controls({"AwbEnable": False, "ColourGains": gains})
+    # configure() a remis les contrôles à zéro : on réactive l'autofocus continu
+    picam.set_controls({"AfMode": 2, "AwbEnable": False, "ColourGains": gains})
 
     # D — Watermark
     add_watermark(filepath)
