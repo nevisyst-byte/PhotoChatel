@@ -29,3 +29,6 @@ token*.json
 client_secret*.json
 token.pickle
 *.pickle
+client_secret*.json
+token.pickle
+*.pickle
