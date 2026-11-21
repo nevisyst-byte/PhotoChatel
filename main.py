@@ -44,7 +44,7 @@ VF_X, VF_Y     = 20, 90
 VF_W, VF_H     = 984, 430
 VF_BORDER       = (212, 160, 23)
 VF_BORDER_W     = 4
-DECO_Y          = 606
+DECO_Y          = 473
 
 BTN_W, BTN_H        = 860, 80
 BTN_Y               = 528
@@ -236,6 +236,13 @@ def refresh_qr_permanent():
         qr_permanent = None
 
 picam = Picamera2()
+HAS_AUTOFOCUS = "AfMode" in picam.camera_controls
+_orig_set_controls = picam.set_controls
+def _safe_set_controls(ctrls):
+    ok = picam.camera_controls
+    return _orig_set_controls({k: v for k, v in ctrls.items() if k in ok})
+picam.set_controls = _safe_set_controls
+
 from libcamera import Transform
 
 preview_config = picam.create_preview_configuration(
@@ -439,6 +446,8 @@ def focus_before_capture(timeout=2.5):
     (la photo est alors prise quand même, avec la dernière position de l'objectif).
     """
     try:
+        if not HAS_AUTOFOCUS:
+            return False
         picam.set_controls({
             "AfMode": controls.AfModeEnum.Auto,
             "AfTrigger": controls.AfTriggerEnum.Start,
