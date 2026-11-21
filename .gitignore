@@ -15,7 +15,14 @@ __pycache__/
 venv/
 .env
 
-# Système
+# Fichiers locaux
 .DS_Store
 *.swp
 *.log
+lien.txt
+save config*.txt
+https:/
+client_secret.json
+token*.json
+*.avant-autofocus
+*.bak*
