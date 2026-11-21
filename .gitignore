@@ -26,3 +26,6 @@ client_secret.json
 token*.json
 *.avant-autofocus
 *.bak*
+client_secret*.json
+token.pickle
+*.pickle
